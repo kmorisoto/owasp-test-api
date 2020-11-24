@@ -1,0 +1,6 @@
+micronaut:
+  application:
+    name: demo
+  security:
+    enabled: true
+    authentication-provider-strategy: all
