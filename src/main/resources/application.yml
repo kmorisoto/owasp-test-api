@@ -3,7 +3,7 @@ micronaut:
     name: demo
   security:
     enabled: true
-    authentication-provider-strategy: all
+#    authentication-provider-strategy: any
     intercept-url-map:
       - pattern: /swagger/*
         http-method: GET
