@@ -4,3 +4,16 @@ micronaut:
   security:
     enabled: true
     authentication-provider-strategy: all
+    intercept-url-map:
+      - pattern: /swagger/*
+        http-method: GET
+        access:
+          - isAnonymous()
+
+---
+micronaut:
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
