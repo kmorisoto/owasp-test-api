@@ -1,0 +1,35 @@
+name: owasp api scan
+
+on: workflow_dispatch
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Restore gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: Run app
+        run: |
+          ./gradlew buildLayers
+          ./gradlew dockerBuild
+          docker-compose up -d
+
+      - name: Stop app
+        run: |
+          docker-compose down
+
