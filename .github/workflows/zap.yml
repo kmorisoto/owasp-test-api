@@ -37,7 +37,7 @@ jobs:
 
       - name: OWASP ZAP SCAN
         run: |
-          docker run --user $(id -u):$(id -g) --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py \
+          docker run --user root --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py \
                -t http://${{ steps.ip.outputs.IP_ADDRESS }}:8080/swagger/demo-0.0.yml -f openapi \
                -r testreport.htm \
                -z "-addoninstall sqliplugin  \
