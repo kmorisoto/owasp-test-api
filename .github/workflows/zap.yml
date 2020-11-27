@@ -48,8 +48,11 @@ jobs:
                -config replacer.full_list\\(0\\).regex=false \
                -config replacer.full_list\\(0\\).replacement='Bearer 123'"
 
-      - if: always()
-        run: cat testreport.html
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: my-artifact
+          path: testreport.html
 
       - name: Stop app
         run: |
