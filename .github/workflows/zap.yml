@@ -7,12 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: IP address
-        id: ip
-        run: |
-          address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
-          echo '::set-output name=IP_ADDRESS::'$address
-
       - uses: actions/checkout@v2
 
       - name: Restore gradle cache
@@ -37,8 +31,12 @@ jobs:
 
       - name: OWASP ZAP SCAN
         run: |
-          docker run --user root --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py \
-               -t http://${{ steps.ip.outputs.IP_ADDRESS }}:8080/swagger/demo-0.0.yml -f openapi \
+          TARGET_URL="http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):8080/swagger/demo-0.0.yml "
+          docker run --rm \
+               --user root \
+               -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-api-scan.py \
+               -t $TARGET_URL \
+               -f openapi \
                -r testreport.html \
                -z "-addoninstall sqliplugin  \
                -config replacer.full_list\\(0\\).description=auth1 \
