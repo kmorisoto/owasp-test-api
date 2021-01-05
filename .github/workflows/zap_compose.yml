@@ -39,6 +39,13 @@ jobs:
           name: my-artifact
           path: testreport.html
 
+      - name: failure
+        if: failure()
+        run: echo '失敗'
+
+      - name: success
+        if: success()
+        run: echo '成功'
       - name: Stop app
         run: |
           docker-compose down
