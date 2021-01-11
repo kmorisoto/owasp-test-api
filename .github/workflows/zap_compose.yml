@@ -31,7 +31,7 @@ jobs:
 
       - name: Zap scan
         run: |
-          docker-compose up zap
+          docker-compose up --abort-on-container-exit zap 
 
       - uses: actions/upload-artifact@v2
         if: always()
