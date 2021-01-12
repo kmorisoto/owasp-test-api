@@ -10,5 +10,6 @@ services:
     volumes:
     - ./zap:/zap/wrk/:rw
     command: zap-api-scan.py -t http://app:8080/swagger/demo-0.0.yml -f openapi -r testreport.html
+    user: $USER
     depends_on:
       - app
