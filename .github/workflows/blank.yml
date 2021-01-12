@@ -26,6 +26,7 @@ jobs:
         run: |
           echo "selected_color=green" >> $GITHUB_ENV
           echo "URL=http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):8080/" >> $GITHUB_ENV
+          echo $USER
       - name: Run a multi-line script
         run: |
           echo $selected_color
