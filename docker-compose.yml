@@ -14,7 +14,7 @@ services:
       -t http://app:8080/swagger/demo-0.0.yml
       -f openapi
       -r testreport.html
-      -c zap.confg
+      -c zap.config
       -z "-addoninstall sqliplugin
       -config replacer.full_list\\(0\\).description=auth1
       -config replacer.full_list\\(0\\).enabled=true
